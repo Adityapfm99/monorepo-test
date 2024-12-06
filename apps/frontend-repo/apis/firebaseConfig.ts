@@ -1,5 +1,6 @@
 // frontend-repo/apis/firebaseConfig.ts
 import { initializeApp } from 'firebase/app';
+import 'dotenv/config';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
@@ -9,14 +10,17 @@ const firebaseConfig = {
   authDomain: "backend-ebuddy-dd012.firebaseapp.com",
   databaseURL: "https://backend-ebuddy-dd012-default-rtdb.firebaseio.com",
   projectId: "backend-ebuddy-dd012",
-  storageBucket: "backend-ebuddy-dd012.appspot.com", // Corrected storage bucket domain
+  storageBucket: "backend-ebuddy-dd012.appspot.com",
   messagingSenderId: "1072758298003",
   appId: "1:1072758298003:web:eeec7aec5e58c7ec3a0466",
   measurementId: "G-6SBYD1E22X"
 };
 
+
 // Initialize the Firebase app
+console.log("Firebase initializing...");
 const app = initializeApp(firebaseConfig);
+console.log("Firebase initialized:", app);
 
 // Initialize and export Firebase Authentication
 export const auth = getAuth(app);

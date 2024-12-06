@@ -1,37 +1,35 @@
 import admin from 'firebase-admin';
 import { ServiceAccount } from 'firebase-admin';
-import 'dotenv/config';
+import 'dotenv/config'; // Ensure dotenv is loaded for environment variables
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-
 import serviceAccount from '../config/serviceAccountKey.json';
 
-
+// Firebase Admin SDK Initialization
 admin.initializeApp({
-  // credential: admin.credential.cert(serviceAccount),
-
   credential: admin.credential.cert(serviceAccount as ServiceAccount),
-  // credential: admin.credential.cert(require(process.env.GOOGLE_APPLICATION_CREDENTIALS!)),
-  
-  databaseURL: 'https://backend-ebuddy-dd012-default-rtdb.firebaseio.com/',
+  databaseURL: process.env.FIREBASE_DATABASE_URL, // Ensure this is in your .env file
 });
 
+// Export Firestore Database
 export const db = admin.firestore();
+
+// Firebase Client SDK Configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyARCLh1bPq7FwHYXpdjczNFb_1N2em-HOQ",
-  authDomain: "backend-ebuddy-dd012.firebaseapp.com",
-  projectId: "backend-ebuddy-dd012",
-  storageBucket: "backend-ebuddy-dd012.appspot.com",
-  messagingSenderId: "1072758298003",
-  appId: "1:1072758298003:web:eeec7aec5e58c7ec3a0466",
-  measurementId: "G-6SBYD1E22X",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase App
+// Initialize Firebase Client App
 const app = initializeApp(firebaseConfig);
 
-// Initialize and export Firebase Authentication
+// Initialize Firebase Authentication and Export
 export const auth = getAuth(app);
 
-// Export the app in case you need it for other Firebase services
+// Export the Firebase Client App
 export default app;
